@@ -1,4 +1,5 @@
 # clickscan
+![ClickScan Run Window with Red Button](https://github.com/jamjolu/clickscan/blob/master/clickScanOn.png)
 ClickScan - A Windows utility to enhance a switch adapted mouse to provide auto-scan and other features especially helpful for single-switch access. ClickScan sends a sequence of keystrokes to an application helping users to navigate and make choices on websites and in some applications.
 
 ClickScan presents itself as small window with a red button that hovers over other applications. When a user clicks the red button 
