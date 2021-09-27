@@ -1,7 +1,9 @@
 ; Clickscan presents a red button on the screen that when clicked sends a sequence of keystrokes to the last active application.
 ; The sequence is intended to move the focus from one selectable item to the next. A second click on the big red button sends a keystroke that activates the focused item.
-; Open Clickscan and press the ~ key to see its controls and to access the help file for more info.
-;
+; Open Clickscan and press the ` key to see its controls and to access the help file for more info.
+; This version - 9/24/2021 - now includes ~1 as a hotkey sequence which has thw same effect as clicking the big red button.
+; This change permits the use of Bluetooth switches and interfaces indended for iPads to be used on Windows to simulate mouse clicks, and to
+; genreate two key sequences for auto-scanning.
 ;
 relLoc := A_workingDir . "\"  ;used to trim picture file locations to a relative path
 CoordMode,Mouse,Screen
@@ -37,7 +39,7 @@ ypos = 0
 UseTargets = 0
 
 helpTitle = ClickScan Help
-helpText = ClickScan can generate a "scan sequence" to help  single switch scanners navigate some applications and/or some web pages. For example, many web pages and browsers will respond to the Tab key by moving the focus highlight to the next click-able item. The Space key can be used to select the highlighted item in the same way as clicking on it would.`n`n If your switch user has an adapted mouse (where the switch input activates a left click,) a facilitator should hover the mouse cursor over the ClickScan red button. When the switch user presses their switch, a scan sequence begins with a series of Tabs sent to the most recently active window for highlighting items at the rate set by the Scan Rate menu. A second switch activation teminates the sequence sending the Space character to select the highlighted item. `n`n The Mask time defines an interval after a switch activation when additional, perhaps inadvertant, switch activations are ignored. `n`n When a scan sequence has started the background of the ClickScan window turns a light green color. The background color returns to blue when the scan sequence has concluded. `n`n Settting the scan rate to 0 will cause ClickScan to send just the highlight key with each click of the ClickScan button instead of a scan sequence. `n `n Checking the "Target Mode" box allows you to provide your user with a timed cause/effect experience that works well with media players. You can define targets like the "Play" and "Pause" buttons in the media player that will be activated as a sequence when you user activates the ClickScan button. The time between the Play activation and the Pause activation is defined by the Scan Rate menu. You identify the position of the first target (the Play button) by hovering the mouse cursor over it and using the Alt-1 key combo to record its position (Hold the Alt key, press the 1 key.) The second target position (the Pause button) is recorded using the Alt-2 key combo. If the Scan Rate is set to 0 (zero) then only the first target is clicked. ClickScan takes care of moving mouse cursor and clicking the targets you recorded. It will wait for your user to release their switch before initiating the sequence.
+helpText = ClickScan can generate a "scan sequence" to help  single switch scanners navigate some applications and/or some web pages. For example, many web pages and browsers will respond to the Tab key by moving the focus highlight to the next click-able item. The Space key can be used to select the highlighted item in the same way as clicking on it would.`n`n If your switch user has an adapted mouse (where the switch input activates a left click,) a facilitator should hover the mouse cursor over the ClickScan red button. When the switch user presses their switch, a scan sequence begins with a series of Tabs sent to the most recently active window for highlighting items at the rate set by the Scan Rate menu. A second switch activation teminates the sequence sending the Space character to select the highlighted item. `n`n The Mask time defines an interval after a switch activation when additional, perhaps inadvertant, switch activations are ignored. `n`n When a scan sequence has started the background of the ClickScan window turns a light green color. The background color returns to blue when the scan sequence has concluded. `n`n Settting the scan rate to 0 will cause ClickScan to send just the highlight key with each click of the ClickScan button instead of a scan sequence. `n `n ClickScan can also be triggered by the ~1 key sequence which is a commonly used method for switch access on iPads. Set your Bluetooth switch interface to send ~1 to wirelessly activate ClickScan! `n `n Checking the "Target Mode" box allows you to provide your user with a timed cause/effect experience that works well with media players. You can define targets like the "Play" and "Pause" buttons in the media player that will be activated as a sequence when you user activates the ClickScan button. The time between the Play activation and the Pause activation is defined by the Scan Rate menu. You identify the position of the first target (the Play button) by hovering the mouse cursor over it and using the Alt-1 key combo to record its position (Hold the Alt key, press the 1 key.) The second target position (the Pause button) is recorded using the Alt-2 key combo. If the Scan Rate is set to 0 (zero) then only the first target is clicked. ClickScan takes care of moving mouse cursor and clicking the targets you recorded. If you user is using an adapted mouse it will wait for your user to release their switch before initiating the sequence. If you are using a Bluetooth switch interface Target mode is activated as soon as the uses presses their switch.
 
 
 goSub, iniSetup
@@ -58,7 +60,7 @@ Gui, 1:Add, Text, x150 y45 w85 h30 , Scan Rate:
 Gui, 1:Add, Text, x150 y65 w85 h30 , Mask Time:
 Gui, 1:Add, Button, x150 y85 w80 gshowHelp, Help
 Gui, 1:Add, Checkbox, x150 y108 vUseTargets Checked%UseTargets% gSetVars, Target Mode
-Gui, 1:Add, Text, x5 y130 w140 , Press ~ to view/hide controls
+Gui, 1:Add, Text, x5 y130 w140 , Press `` (backtick) for settings
 Gui, 1:Color, 0x00CCDD
 Gui, 1:Show, x%csXloc% y%csYloc% h%minHeight% w%minWidth% NoActivate, %csTitleBar%
 Return
@@ -68,10 +70,15 @@ gosub, saveIniSetup
 gosub, RelocateAndActivate
 Return
 
-RelocateAndActivate: ; move the clickscan window to either show or hide controls
-~::	
+
+
+~1::
+   Gosub, csClicked
+   return
+
 `::
  Suspend
+ RelocateAndActivate: ; move the clickscan window to either show or hide controls
  if (suspended) {
     Suspend, Off
 	suspended = 0
