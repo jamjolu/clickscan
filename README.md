@@ -9,7 +9,7 @@ ClickScan starts sending a user-defined sequence of keystrokes to the most recen
 New Features! 11/5/2024
 ClickScan now has a new mode called "Drag Mode" to assist users who have difficulty with mouse or touch drag and drop operations. In this mode, when activated, the user selects a start point and then an end point. ClickScan then performs the drag operation. This sometimes does not work in browsers like Chrome or Edge where touch may not be issue a mousedown event required by ClickScan. Instead use Firefox.
 
-Another new feature called "Alternate Trigger" that allows almost any switch interface (Hitch, Atech, Pretorian Applicator) to activate ClickScan in the same way as clicking its red button. The Alternate Trigger dropdown includes the option for using joystick or gamepad buttons.
+Another new feature called "Alternate Trigger" that allows almost any switch interface (like Hitch, Atech, Pretorian Applicator, etc) to activate ClickScan in the same way as clicking its red button. The Alternate Trigger dropdown includes the option for using joystick or gamepad buttons.
 
 
 ClickScan does not require an installation. Just unzip the ClickScan.zip and run ClickScan.exe
