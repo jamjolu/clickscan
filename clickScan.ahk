@@ -175,6 +175,7 @@ return
 	{
 		MouseMove, dragX, dragY, 2
 		MouseClickDrag, Left, dragX, dragY, dropX, dropY, 10, 
+		Click, Up
 		Gui, 1:Color, %bgYellow%
 		DragStatus = 1
 	}
