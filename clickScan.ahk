@@ -112,6 +112,11 @@ Return
 		
 `::
  Suspend
+ if (scanning) {
+	scanning := 0
+	SetTimer, HiliteNext, off
+	Gui, 1:Color, %bgBlue%
+	}
  RelocateAndActivate: ; move the clickscan window to either show or hide controls
  if (suspended) {
     Suspend, Off
