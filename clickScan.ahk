@@ -221,7 +221,7 @@ if !(csAltTrigger = "none")
 gosub, saveIniSetup
 return
 
-csSetStatus:                
+csSetStatus: 
 if (UseDragDrop)            
 	{
 		DragStatus := 0
@@ -236,6 +236,10 @@ return
 
 csClicked: ; handle big red button interactions
 MouseGetPos, xpos, ypos
+if (suspended)
+	{
+		Return
+	}
  if !(masking)
   {
   if (UseDragDrop)
